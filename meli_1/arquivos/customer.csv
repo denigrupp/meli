@@ -1,0 +1,14 @@
+id_customer,email,name,last_name,address,birth_date,type,seller_flg,sexo
+1,xxx@mail.com,fernando,souza,rua 1,1980-01-01,2,1,M
+2,xxx1@mail.com,carlos,zin,rua 2,1980-01-02,1,0,M
+3,xxx3@mail.com,joao,souza,rua 3,1980-01-03,1,0,M
+4,xxx13@mail.com,maria,zin,rua 4,1980-01-04,1,0,F
+5,xxx11@mail.com,fernanda,souza,rua 5,1980-01-05,1,0,F
+6,xxx21@mail.com,luciana,zin,rua 6,1980-01-06,1,0,F
+7,xxx34@mail.com,sandra,souza,rua 7,1980-01-07,1,0,F
+8,xxx111s@mail.com,julia,zin,rua 8,1980-01-08,1,0,F
+9,xxx1111@mail.com,alan,souza,rua 9,1980-01-09,2,1,M
+10,xxx1xx@mail.com,nestor,zin,rua 10,1980-01-10,2,1,M
+11,xxxqqq@mail.com,silva,souza,rua 11,1980-01-11,2,1,M
+12,xxx1zzz@mail.com,souza,zin,rua 12,1980-01-12,2,1,M
+13,xxxzzzz@mail.com,joca,souza,rua 13,1980-01-13,1,0,M
