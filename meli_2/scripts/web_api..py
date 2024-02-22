@@ -33,12 +33,7 @@ def process_item(dados):
 
 def main():
   #Cria conexão
-  engine = conect_mysql(
-    servidor = 'meli.c1uikg0o2ejy.us-east-1.rds.amazonaws.com',
-    banco = 'SELLER' ,                    
-    usuario = 'aluno',
-    senha = 'aluno123'
-    )
+
   lista = ['appletv','chromecast','googlehome']
   process_api(lista)
 
