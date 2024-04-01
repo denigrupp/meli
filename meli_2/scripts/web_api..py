@@ -5,6 +5,25 @@ import joblib
 from datetime import date
 import s3fs
 
+def authenticate_aws(json_path):
+  """"
+  Function to authenticate aws
+  :param json_path: path to aws tokens
+  """
+  keys = open("aws.json", 'r')
+  j = json.loads(keys.read())
+  aws_access_key_id = j.get("aws_access_key_id")
+  aws_secret_access_key = j.get("aws_secret_access_key")
+  aws_session_token = j.get("aws_session_token")
+  fs = s3fs.S3FileSystem(key=aws_access_key_id,
+                       secret=aws_secret_access_key,
+                       token =aws_session_token)
+  return fs
+
+def write_to_s3(df,path):
+  fs = authenticate_aws("aws.json")
+  with fs.open(path,mode='w') as f:
+    df.to_csv(f)
 
 def return_item(url):
     """
@@ -26,27 +45,6 @@ def explode_df(df,l):
     for i in l:
       df.explode('buying_mode').reset_index(drop=True)
     return df
-
-def authenticate_aws(json_path):
-  """"
-  Function to authenticate aws
-  :param json_path: path to aws tokens
-  """
-  keys = open("aws.json", 'r')
-  j = json.loads(keys.read())
-  aws_access_key_id = j.get("aws_access_key_id")
-  aws_secret_access_key = j.get("aws_secret_access_key")
-  aws_session_token = j.get("aws_session_token")
-  fs = s3fs.S3FileSystem(key=aws_access_key_id,
-                       secret=aws_secret_access_key,
-                       token =aws_session_token)
-  return fs
-
-def write_to_s3(df,path):
-  fs = authenticate_aws("aws.json")
-  with fs.open(path,mode='w') as f:
-    df.to_csv(f)
-
 
 def process_item(items,mla):
     """
