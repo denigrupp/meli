@@ -30,6 +30,7 @@ def explode_df(df,l):
 def authenticate_aws(json_path):
   """"
   Function to authenticate aws
+  :param json_path: path to aws tokens
   """
   keys = open("aws.json", 'r')
   j = json.loads(keys.read())
