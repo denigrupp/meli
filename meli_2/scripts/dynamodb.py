@@ -1,9 +1,5 @@
 import json 
 import requests as r
-import pandas as pd
-import joblib
-from datetime import date
-import s3fs
 import boto3
 from decimal import Decimal
 
@@ -16,7 +12,6 @@ def return_item(url):
     values = r.get(url,verify=False)
     values = json.loads(values.text, parse_float=Decimal)
     return values
-
 
 def authenticate_dynamo(json_path):
   """"
@@ -32,7 +27,6 @@ def authenticate_dynamo(json_path):
                         aws_session_token=aws_session_token
                        ,region_name = "us-east-1", use_ssl=False)
   return dynamodb
-
 
 def main():
   dynamodb = authenticate_dynamo("aws.json")
@@ -68,8 +62,6 @@ def main():
      table.put_item(
         Item=i
      )
-  
-
-
+      
 if __name__ == "__main__":
   main()
