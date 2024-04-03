@@ -6,8 +6,8 @@
 		   SUM(CASE WHEN DATE BETWEEN '2020-01-01' AND '2020-01-31' THEN total_value else 0 end ) sell_jan
 	FROM SELLER.ORDER c
 	INNER JOIN CUSTOMER cm
-	ON c.ID_seller= cm.id_CUSTOMER
-	#WHERE DATE_FORMAT(birth_date, '%m%d') =  DATE_FORMAT(now(), '%m%d')
+	ON c.id_CUSTOMER= cm.id_CUSTOMER
+	WHERE DATE_FORMAT(birth_date, '%m%d') =  DATE_FORMAT(now(), '%m%d')
 	GROUP BY cm.email,cm.name,birth_date
 	HAVING SUM(CASE WHEN DATE 
 				BETWEEN '2020-01-01' 
@@ -25,14 +25,15 @@ with cte as (
 	 	   SUM(oi.quantity) qtd,
 	 	   SUM(oi.value) value
 	FROM SELLER.ORDER c
-	INNER JOIN CUSTOMER cm ON c.ID_seller= cm.id_CUSTOMER	
+	INNER JOIN SELLER cm ON c.ID_seller= cm.ID_seller	
 	INNER JOIN ORDER_ITEM oi On oi.order_id = c.order_id	
 	INNER JOIN ITEM it on oi.id_item = it.id_tem
 	LEFT JOIN CATEGORY ct on it.id_category = ct.id_category
-	WHERE ct.category = "SMARTPHONE"
+	WHERE ct.category = "SMARTPHONE" and c.DAte >= '2020-01-01' and  c.DAte < '2020-02-01'
 	GROUP BY cm.name,
 		   cm.last_name,
-		   DATE_FORMAT(birth_date, '%Y%m')
+		   DATE_FORMAT(c.DAte, '%Y%m')	
+		   
  )
  #Cria um ranking por mes e ano ordenando por valor
  , cte2 as (
@@ -44,7 +45,7 @@ with cte as (
  		RANK() OVER (PARTITION BY month_2020 order by value desc) ranking
  FROM cte
  )
- SELECT * FROM cte2 where ranking < 6
+ SELECT *, qtd*value monto_total FROM cte2 where ranking < 6
 
 #3. Se solicita poblar una nueva tabla con el precio y estado de los Ítems a fin del día.
 #Tener en cuenta que debe ser reprocesable. Vale resaltar que en la tabla Item, 
